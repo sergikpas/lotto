@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Lotto generator</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	</head>
+	<body>
+
+		<div style="font-size:150pt;margin-left:auto;margin-right:auto;width:500px;text-align:center;" id="unumber">Начать</div>
+		<div style="font-size:36px;margin-left:auto;margin-right:auto;width:500px;text-align:center;"><a href="" id="unext_num" style="color:#ff6600">Следующее число</a></div>
+		
+		<div style="font-size:36px;margin-left:auto;margin-right:auto;margin-top:30pt;width:100%;text-align:center;color:#666" id="uhistory"></div>
+	</body>
+	<script>
+		function getRandomInt(min, max) {
+			min = Math.ceil(min);
+			max = Math.floor(max);
+			return Math.floor(Math.random() * (max - min + 1)) + min;
+		}
+	
+		var nums = new Array(99);
+		for(var i = 0; i < nums.length; i++){
+			nums[i]=i+1;
+		}
+		$(document).ready(function(){
+			var choice = '';
+			$("#unext_num").on('click',function() { 
+				if (nums.length == 0 && choice == '') {
+					return false;
+				}
+				if (nums.length == 0 && choice != '') {
+					$('#uhistory').append('<span style="padding:15px;border-radius:42px;border: 2px solid #666;line-height:80px">' + choice + '</span> ');
+					$('#unumber').html('Конец');
+					choice ='';
+					return false;
+				}
+				if (choice != '') {
+					$('#uhistory').append('<span style="padding:15px;border-radius:42px;border: 2px solid #666;line-height:80px">' + choice + '</span> ');
+				}
+				num = getRandomInt(0, nums.length-1);
+				choice = nums[num];	
+				$('#unumber').html(choice);
+				console.log(nums);
+				nums.splice( num, 1 );
+				return false;
+			});
+			
+		});
+	</script>
+</html>
